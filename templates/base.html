@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Study Task Hub{% endblock %}</title>
+    <meta name="description" content="A task-centred coursework interface prepared for Django integration.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body data-ajax-endpoint="{{ ajax_endpoint|default:'' }}">
+
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="border-bottom bg-white sticky-top shadow-sm">
+        <nav class="navbar navbar-expand-lg" aria-label="Main navigation">
+            <div class="container py-2">
+                <a class="navbar-brand fw-bold text-primary-emphasis" href="{% url 'home' %}">Study Task Hub</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav" aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="siteNav">
+                    <ul class="navbar-nav me-auto align-items-lg-center gap-lg-2">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                        {% if user.is_authenticated or preview_authenticated_area %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'course_management' %}">Courses</a></li>
+                        {% else %}
+
+                            <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container pt-3">
+        <div id="global-feedback" class="alert d-none" role="status" aria-live="polite"></div>
+    </div>
+
+    <main id="main-content" class="py-4 py-lg-5">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="border-top bg-white py-4 mt-auto">
+        <div class="container d-flex flex-column flex-md-row justify-content-between gap-2 small text-secondary">
+            <p class="mb-0">© 2026 Study Task Hub</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

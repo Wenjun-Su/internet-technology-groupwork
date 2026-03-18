@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Course Management | Study Task Hub{% endblock %}
+{% block content %}
+
+<h1>Create and organise courses</h1>
+<p>Add courses for task association and improve dashboard filtering.</p>
+
+<p><a href="{% url 'dashboard' %}">Back to Dashboard</a></p>
+
+<h2>Create Course</h2>
+<form method="post">
+    {% csrf_token %}
+
+    <p>
+        <label for="{{ form.name.id_for_label }}">Course name</label><br>
+        {{ form.name }}
+        {% if form.name.errors %}
+            <br><span style="color:red;">{{ form.name.errors }}</span>
+        {% endif %}
+    </p>
+
+    <p>
+        <label for="{{ form.code.id_for_label }}">Course code</label><br>
+        {{ form.code }}
+        {% if form.code.errors %}
+            <br><span style="color:red;">{{ form.code.errors }}</span>
+        {% endif %}
+    </p>
+
+    <p>
+        <label for="{{ form.description.id_for_label }}">Description</label><br>
+        {{ form.description }}
+        {% if form.description.errors %}
+            <br><span style="color:red;">{{ form.description.errors }}</span>
+        {% endif %}
+    </p>
+
+    <button type="submit">Create Course</button>
+</form>
+
+<h2>Available courses</h2>
+
+{% if courses %}
+    <ul>
+        {% for course in courses %}
+            <li style="margin-bottom: 12px;">
+                <strong>{{ course.code }}</strong> — {{ course.name }}<br>
+                {% if course.description %}
+                    <span>{{ course.description }}</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No courses found.</p>
+{% endif %}
+
+{% endblock %}

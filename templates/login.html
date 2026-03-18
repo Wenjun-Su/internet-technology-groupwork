@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Login | Study Task Hub{% endblock %}
+{% block content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <span class="badge text-bg-light mb-2">SIGN IN</span>
+                        <h1 class="h2 fw-bold">Log in to your study space</h1>
+                        <p class="text-muted mb-0">Access your tasks and courses.</p>
+                    </div>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags|default:'info' }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="username"
+                                name="username"
+                                required
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password"
+                                name="password"
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+
+                    <p class="text-center mt-4 mb-0">
+                        Need an account?
+                        <a href="{% url 'register' %}">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Login | Study Task Hub{% endblock %}
+
+{% block content %}
+<section class="container auth-shell">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-5">
+            <div class="form-card p-4 p-lg-5">
+                <div class="text-center mb-4">
+                    <span class="eyebrow">Sign In</span>
+                    <h1 class="h3 fw-bold mt-2">Log in to your dashboard</h1>
+                    <p class="text-secondary mb-0">Enter your email and password to continue. This page includes a placeholder area for Django or Ajax error messages.</p>
+                </div>
+
+                <div class="alert alert-danger d-none" data-server-error role="alert">Incorrect email or password. Please try again.</div>
+                <div class="alert alert-success d-none" data-form-message role="status" aria-live="polite"></div>
+
+                <form novalidate data-validate-form data-success-message="Your login details passed front-end validation and are ready to be submitted.">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Email</label>
+                        <input id="loginEmail" name="email" type="email" class="form-control" autocomplete="email" required data-label="Email">
+                        <div class="invalid-feedback" id="loginEmailError"></div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input id="loginPassword" name="password" type="password" class="form-control" autocomplete="current-password" required minlength="8" data-label="Password">
+                        <div class="invalid-feedback" id="loginPasswordError"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+
+                <p class="text-center text-secondary mt-4 mb-0">Do not have an account yet? <a href="{% url 'register' %}" class="fw-semibold">Register now</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

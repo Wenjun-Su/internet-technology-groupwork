@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | Study Task Hub{% endblock %}
+{% block content %}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="display-5 fw-bold">Your task centre</h1>
+            <p class="text-muted mb-0">
+                Review every task in one place, sorted by due date, filtered by course, and supported by clear priority indicators.
+            </p>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <a href="{% url 'task_create' %}" class="btn btn-primary me-2">Create Task</a>
+        <a href="{% url 'course_management' %}" class="btn btn-outline-secondary">Manage Courses</a>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="h4 mb-3">Filter by course</h2>
+            <form method="get" action="{% url 'dashboard' %}">
+                <label for="course-filter" class="form-label">Choose a course</label>
+                <select id="course-filter" name="course" class="form-select" onchange="this.form.submit()">
+                    <option value="">All courses</option>
+                    {% for course in courses %}
+                        <option value="{{ course.id }}" {% if selected_course == course.id|stringformat:"s" %}selected{% endif %}>
+                            {{ course.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <h2 class="h3 mb-3">Task list</h2>
+
+    {% if tasks %}
+        <div class="row g-4">
+            {% for task in tasks %}
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title h2 mb-3">{{ task.title }}</h3>
+
+                            <p class="mb-2"><strong>Course:</strong> {{ task.course.name|default:"Not assigned" }}</p>
+                            <p class="mb-2"><strong>Deadline:</strong> {{ task.deadline }}</p>
+                            <p class="mb-2">
+                                <strong>Priority:</strong>
+                                {% if task.priority == 'High' %}
+                                   <span class="badge bg-danger">High</span>
+                                {% elif task.priority == 'Medium' %}
+                                   <span class="badge bg-warning text-dark">Medium</span>
+                                {% else %}
+                                   <span class="badge bg-success">Low</span>
+                                {% endif %}
+                                   </p>
+                            <p class="mb-2"><strong>Status:</strong> {{ task.get_status_display }}</p>
+
+                            {% if task.description %}
+                                <p class="mb-3"><strong>Description:</strong> {{ task.description }}</p>
+                            {% endif %}
+
+                            <div class="mb-3">
+                                <a href="{% url 'task_detail' task.pk %}" class="btn btn-outline-primary btn-sm me-2">View</a>
+                                <a href="{% url 'task_update' task.pk %}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            </div>
+
+                            <form method="post" action="{% url 'task_toggle_complete' task.pk %}" class="d-inline-block me-2">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    {% if task.status == 'done' %}
+                                        Mark as To Do
+                                    {% else %}
+                                        Mark as Completed
+                                    {% endif %}
+                                </button>
+                            </form>
+
+                            <form method="post" action="{% url 'task_delete' task.pk %}" class="d-inline-block">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">No tasks found.</div>
+    {% endif %}
+</div>
+
+{% endblock %}

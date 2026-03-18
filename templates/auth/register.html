@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Register | Study Task Hub{% endblock %}
+
+{% block content %}
+<section class="container auth-shell">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 col-xl-5">
+            <div class="form-card p-4 p-lg-5">
+                <div class="text-center mb-4">
+                    <span class="eyebrow">Create Account</span>
+                    <h1 class="h3 fw-bold mt-2">Register your study space</h1>
+                    <p class="text-secondary mb-0">A minimal and distraction-free registration form prepared for Django form handling.</p>
+                </div>
+
+                <div class="alert alert-success d-none" data-form-message role="status" aria-live="polite"></div>
+
+                <form novalidate data-validate-form data-success-message="Your registration details passed front-end validation and are ready to be submitted.">
+                    <div class="mb-3">
+                        <label for="registerUsername" class="form-label">Username</label>
+                        <input id="registerUsername" name="username" type="text" class="form-control" autocomplete="username" required data-label="Username">
+                        <div class="invalid-feedback" id="registerUsernameError"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="registerEmail" class="form-label">Email</label>
+                        <input id="registerEmail" name="email" type="email" class="form-control" autocomplete="email" inputmode="email" required data-label="Email">
+                        <div class="invalid-feedback" id="registerEmailError"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="registerPassword" class="form-label">Password</label>
+                        <input id="registerPassword" name="password" type="password" class="form-control" autocomplete="new-password" required minlength="8" data-label="Password" aria-describedby="passwordHint">
+                        <div id="passwordHint" class="form-text">Use at least 8 characters. A mix of letters and numbers is recommended.</div>
+                        <div class="invalid-feedback" id="registerPasswordError"></div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="registerConfirmPassword" class="form-label">Confirm Password</label>
+                        <input id="registerConfirmPassword" name="confirm_password" type="password" class="form-control" autocomplete="new-password" required data-label="Confirm password" data-match-selector="#registerPassword" data-match-message="The two passwords do not match.">
+                        <div class="invalid-feedback" id="registerConfirmPasswordError"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </form>
+
+                <p class="text-center text-secondary mt-4 mb-0">Already have an account? <a href="{% url 'login' %}" class="fw-semibold">Go to login</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

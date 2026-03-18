@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}
+    {% if page_mode == 'edit' %}Edit Task{% else %}Create Task{% endif %} | Study Task Hub
+{% endblock %}
+{% block content %}
+
+<div class="container py-4">
+    <div class="mb-4">
+        {% if page_mode == 'edit' %}
+            <h1 class="display-6 fw-bold">Edit task</h1>
+            <p class="text-muted">Update the task details below.</p>
+        {% else %}
+            <h1 class="display-6 fw-bold">Create task</h1>
+            <p class="text-muted">Add a new task to your planner.</p>
+        {% endif %}
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-primary mt-2">Back to Dashboard</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Task title</label>
+                    {{ form.title }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Due date</label>
+                    {{ form.deadline }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Priority</label>
+                    {{ form.priority }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Course</label>
+                    {{ form.course }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    {{ form.status }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    {{ form.description }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    {% if page_mode == 'edit' %}Save changes{% else %}Create task{% endif %}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

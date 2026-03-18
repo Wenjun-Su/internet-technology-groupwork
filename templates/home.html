@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | Study Task Hub{% endblock %}
+
+{% block content %}
+<section class="container">
+    <div class="row align-items-center g-4 g-lg-5 mb-5">
+        <div class="col-lg-12">
+            <span class="eyebrow">Public Landing Page</span>
+            <h1 class="display-5 fw-bold mt-3">Manage course tasks, deadlines, and priorities through a task-centred workflow.</h1>
+            <div class="d-flex flex-column flex-sm-row gap-3 mt-4">
+                <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Create Account</a>
+                <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <section class="panel-card p-4 h-100" aria-labelledby="public-pages-heading">
+                <h2 id="public-pages-heading" class="h4 mb-3">Public pages</h2>
+                <ul class="workflow-list mb-0">
+                    <li><strong>Home:</strong> public entry point with navigation, explanation, and action buttons.</li>
+                    <li><strong>Register:</strong> minimal sign-up form with inline validation and accessible labels.</li>
+                    <li><strong>Login:</strong> simple sign-in form with an error message area and keyboard-friendly controls.</li>
+                </ul>
+            </section>
+        </div>
+        <div class="col-lg-6">
+            <section class="panel-card p-4 h-100" aria-labelledby="auth-pages-heading">
+                <h2 id="auth-pages-heading" class="h4 mb-3">Authenticated area</h2>
+                <ul class="workflow-list mb-0">
+                    <li><strong>Dashboard:</strong> all tasks, sorted by due date, with filtering and priority indicators.</li>
+                    <li><strong>Create/Edit Task:</strong> task form with date picker, priority selector, and optional course link.</li>
+                    <li><strong>Task Detail:</strong> actions for editing, marking as completed, and deleting.</li>
+                    <li><strong>Course Management:</strong> create course interface and course overview list.</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+</section>
+{% endblock %}
